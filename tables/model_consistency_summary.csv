@@ -1,0 +1,33 @@
+check,metric,tolerance,observed_value,violation_count,status,notes
+historical_capacity_harmonised_panel,missing_or_negative_model_used_rows,0,missing=0; negative_additions=0,0,PASS,Model-used historical capacity should be complete and annual additions should be non-negative after the IRENASTAT non-decreasing envelope.
+historical_capacity_primary_source,unique_capacity_source_values,IRENASTAT,['IRENASTAT'],0,PASS,Historical 2000-2024 capacity should come from the IRENASTAT-style installed-capacity sheet only; annual additions are derived from this cumulative panel.
+irenastat_raw_and_harmonised_audit_files,missing_required_audit_files,0,none,0,PASS,"Raw IRENASTAT, harmonised model-used capacity, adjustment audit, raw-decrease audit, and validation report should all be exported."
+chapter4_scenario_output_availability,missing_required_comparison_rows,0,0,0,PASS,Checks that all requested Chapter 4 controlled comparison combinations are present.
+market_segment_shares,max_abs_sum_deviation,1e-08,3.33066907388e-16,0,PASS,Tolerance is 1e-8 because shares are stored as normalized fractions.
+technology_shares,max_abs_sum_deviation,1e-08,0,0,PASS,Tolerance is 1e-8 because shares are stored as normalized fractions.
+capacity_additions_reconciliation,max_abs_residual_gw,1e-06,0,0,PASS,Tolerance is 1e-6 GW; 2025 additions are checked against the 2024 observed-to-forecast boundary.
+non_negative_forecast_additions,negative_addition_rows,1e-08,0,0,PASS,Tolerance is 1e-8 GW to ignore floating-point noise after existing clipping.
+country_year_completeness_historical_capacity,missing_expected_country_years,0,0,0,PASS,Expected EU27 coverage for 2000-2024.
+country_year_completeness_forecast_capacity,missing_expected_scenario_country_years,0,0,0,PASS,Expected EU27 coverage for 2025-2050 and the three deployment scenarios.
+country_year_completeness_market_segmentation,missing_expected_country_years,0,0,0,PASS,Expected EU27 coverage for market segmentation years 2018-2050.
+duplicates_historical_capacity,duplicate_rows,0,0,0,PASS,"Duplicate check used key columns: ['country', 'iso3', 'year']."
+duplicates_forecast_capacity,duplicate_rows,0,0,0,PASS,"Duplicate check used key columns: ['scenario', 'country', 'iso3', 'year']."
+duplicates_technology_mix,duplicate_rows,0,0,0,PASS,"Duplicate check used key columns: ['technology_share_scenario', 'year', 'technology']."
+duplicates_market_segmentation,duplicate_rows,0,0,0,PASS,"Duplicate check used key columns: ['market_segmentation_scenario', 'country', 'iso3', 'year', 'market_segment']."
+duplicates_capacity_by_market_segment,duplicate_rows,0,0,0,PASS,"Duplicate check used key columns: ['scenario', 'market_segmentation_scenario', 'country', 'iso3', 'year', 'market_segment']."
+material_demand_eu27_equals_country_sum,max_abs_residual_tonnes,1e-06,max_abs=4.65661287308e-10; missing_rows=0,0,PASS,Checks that EU27 annual material-demand summaries equal the sum of country-level demand summaries.
+material_intensity_panel_unit_conversion,max_abs_residual_tonnes_per_mw,1e-06,3.46944695195e-18,0,PASS,Tolerance is 1e-6 tonnes/MW; expected values use the existing material_intensity conversion helper.
+material_intensity_panel_tonnes_per_gw_alias,max_abs_residual_tonnes_per_gw,1e-06,0,0,PASS,Checks the exported alias intensity_t_per_gw = intensity_g_per_w * 1000.
+eol_material_intensity_panel_unit_conversion,max_abs_residual_tonnes_per_mw,1e-06,3.46944695195e-18,0,PASS,Tolerance is 1e-6 tonnes/MW; expected values use the existing material_intensity conversion helper.
+eol_material_intensity_panel_tonnes_per_gw_alias,max_abs_residual_tonnes_per_gw,1e-06,0,0,PASS,Checks the exported alias intensity_t_per_gw = intensity_g_per_w * 1000.
+eol_generated_collected_recovered_hierarchy,max_hierarchy_excess_tonnes,1e-06,max_excess=0; missing_rows=0,0,PASS,Checks generated >= collected >= recovered using exported country/material/year EoL summaries.
+eol_generated_eu27_equals_country_sum,max_abs_residual_tonnes,1e-06,max_abs=1.16415321827e-10; missing_rows=0,0,PASS,Checks that exported EU27 aggregate material-flow totals equal the sum of country-level material flows.
+eol_collected_eu27_equals_country_sum,max_abs_residual_tonnes,1e-06,max_abs=5.82076609135e-11; missing_rows=0,0,PASS,Checks that exported EU27 aggregate material-flow totals equal the sum of country-level material flows.
+eol_recovered_eu27_equals_country_sum,max_abs_residual_tonnes,1e-06,max_abs=1.45519152284e-11; missing_rows=0,0,PASS,Checks that exported EU27 aggregate material-flow totals equal the sum of country-level material flows.
+material_inflow_stock_eol_reconciliation,max_abs_residual_tonnes; max_relative_residual,1e-06,max_abs=2.98023223877e-08; max_relative=4.38959369256e-16,0,PASS,"Checks stock(y)=stock(y-1)+cohort material inflow(y)-generated EoL outflow(y), using 2024 as the opening stock for 2025."
+eol_pv_ice_adapter_report,error_or_failure_rows,0,errors_or_failures=0; warnings=277; rows=689,0,PASS,Warnings are retained in the detailed adapter report; this summary treats only error/failure severities as failed validation.
+pv_ice_adaptation_audit,audit_rows,available,11,0,PASS,Audit table is available; detailed adaptation text remains in pv_ice_adaptation_audit.csv.
+weee_methodology_validation,failed_check_rows,0,0,0,PASS,"Checks WEEE scenario names, country coverage, target-year interpolation, pathway sums, effective-share identity, and material-flow hierarchy."
+battery_capacity_unit_conversion,max_abs_residual_mwh,1e-06,0,0,PASS,Checks available_second_life_stock_mwh = available_second_life_stock_kwh / 1000.
+battery_demand_supply_balance_identity,max_abs_residual_mwh,1e-06,2.32830643654e-10,0,PASS,Checks the Chapter 4 battery balance identity: balance = available second-life EV battery stock - required PV-coupled BESS stock.
+battery_eu27_equals_country_sum,max_abs_residual_mwh,1e-06,max_abs=0; missing_rows=0,0,PASS,"Checks that EU27 battery balance, demand and supply values equal the sum of country-level outputs."

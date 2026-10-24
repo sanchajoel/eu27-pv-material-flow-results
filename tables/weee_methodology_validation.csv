@@ -1,0 +1,11 @@
+check,metric,tolerance,observed_value,violation_count,status,notes
+weee_eol_scenarios_exported,scenario_count_and_names,exactly weee_target_2030;weee_target_2050,"2 scenarios: ['weee_target_2030', 'weee_target_2050']",0,PASS,eol_baseline should not be exported as a separate EoL scenario.
+weee_country_coverage,eu27_country_count,27 matched countries,27 matched; missing=[]; extra=[],0,PASS,Uses ISO3 country_code in the WEEE management panel.
+weee_post_collection_pathway_sum,rows_not_summing_to_100_percent,0,0,0,PASS,"For years >= 2023, recycled + landfill + stored + remfg should equal 100% of collected module flow."
+weee_effective_recycling_share_identity,max_abs_difference_percentage_points,1e-08,0,0,PASS,effective_recycling_share_percent = collection_efficiency_percent * recycled_pathway_percent / 100.
+weee_collection_and_recycling_bounds,rows_outside_0_100_percent,0,collection=0; recycling_pathway=0,0,PASS,Collection and module recycling pathway shares are percentages in the management panel.
+weee_pre_2023_scenarios_identical,mismatched_country_year_parameter_values,0,0,0,PASS,Both WEEE scenarios keep the same PV ICE-inspired baseline management values before 2023.
+weee_target_2030_target_year_reached,collection_target_and_80_percent_collected_flow_recycling_rows_failed,0,max_collection_diff=0; max_recycling_diff=0,0,PASS,weee_target_2030 should reach country-specific collection targets and 80% collected-flow recycling pathway in 2030.
+weee_target_2050_target_year_reached,collection_target_and_80_percent_collected_flow_recycling_rows_failed,0,max_collection_diff=0; max_recycling_diff=0,0,PASS,weee_target_2050 should reach country-specific collection targets and 80% collected-flow recycling pathway in 2050.
+weee_material_flow_hierarchy,generated_ge_collected_ge_recovered_violations,1e-06,0,0,PASS,Checks exported material-flow hierarchy; material recovery still uses existing material target/yield logic.
+weee_85_percent_equipment_recovery_target,implemented_as_separate_equipment_recovery_target,methodology note,no,0,INFO,The current implementation uses 85% only as the Method 2 collection target. The 80% recycling/preparation-for-reuse pathway target is applied to collected module flow; it does not overwrite material recovery yields.
